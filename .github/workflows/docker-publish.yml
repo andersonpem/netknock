@@ -24,7 +24,8 @@ jobs:
           go-version: '1.20'
 
       - name: Fetch Go dependencies
-        run: go get ./src
+        run: go get .
+        working-directory: ./src
 
       - name: Validate SemVer tag
         run: |
