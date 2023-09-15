@@ -25,6 +25,7 @@ jobs:
 
       - name: Fetch Go dependencies
         run: go get -v ./...
+        working-directory: ./
 
       - name: Validate SemVer tag
         run: |
