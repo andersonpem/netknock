@@ -4,8 +4,13 @@ FROM --platform=$TARGETPLATFORM golang:1.20 AS builder
 # Set the working directory
 WORKDIR /go/src/app
 
-# Copy the Go source code into the image
 COPY src/* .
+
+# We must fetch dependencies
+RUN go get .
+
+# Copy the Go source code into the image
+
 
 # Install Musl tools for cross-compilation
 RUN apt-get update && apt-get install -y musl-tools
@@ -14,7 +19,7 @@ RUN apt-get update && apt-get install -y musl-tools
 RUN CC=musl-gcc GOARCH=$TARGETARCH CGO_ENABLED=1 go build -o netknock main.go
 
 # Use a minimal Alpine image for the runtime
-FROM alpine:latest
+FROM --platform=$TARGETPLATFORM alpine:latest
 LABEL org.opencontainers.image.authors="AndersonPEM https://github.com/andersonpem"
 
 # Copy the "netknock" binary from the builder stage to /usr/local/bin
