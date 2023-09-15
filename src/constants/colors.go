@@ -1,4 +1,4 @@
-package Colors
+package constants
 
 const (
 	RED    = "\033[91m"

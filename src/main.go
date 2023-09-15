@@ -1,7 +1,7 @@
 package main
 
 import (
-	"NetKnock/Colors"
+	"NetKnock/constants"
 	"fmt"
 	"net"
 	"os"
@@ -13,19 +13,19 @@ var color = ""
 func currentTime() string {
 	currentTime := time.Now()
 	formattedTime := currentTime.Format("02/01/2006 15:04:05")
-	return string(formattedTime)
+	return formattedTime
 }
 
 func toggleColor() string {
 	if color == "" {
-		color = Colors.YELLOW
+		color = constants.YELLOW
 		return color
 	}
-	if color == Colors.YELLOW {
-		color = Colors.CYAN
+	if color == constants.YELLOW {
+		color = constants.CYAN
 		return color
 	}
-	color = Colors.YELLOW
+	color = constants.YELLOW
 	return color
 }
 
@@ -38,25 +38,25 @@ func main() {
 
 	// Get the address and port from the first argument
 	address := os.Args[1]
-	fmt.Printf("──────────────────────────────────────────────────────────────────────────────────────────\n")
-	fmt.Printf("│" + Colors.YELLOW + "  NetKnock by AndersonPEM <https://github.com/andersonpem https://gitlab.com/andersonpem>" + Colors.RESET + "│\n")
-	fmt.Printf("│" + Colors.GREEN + "One Knock to Rule Them All." + Colors.RESET + "                                                              │\n")
-	fmt.Printf("│" + Colors.GREEN + "I'll be knocking your port until it responds. And I'm very insistent. ^^" + Colors.RESET + "                 │\n")
-	fmt.Printf("│"+Colors.CYAN+"Host to be checked: %s"+Colors.RESET+"                                                       │\n", address)
-	fmt.Printf("──────────────────────────────────────────────────────────────────────────────────────────\n")
+	fmt.Printf("───────────────────────────────────────────────────────────────────────────────────────────────\n")
+	fmt.Printf("│" + constants.YELLOW + "    NetKnock by AndersonPEM <https://github.com/andersonpem https://gitlab.com/andersonpem>" + constants.RESET + "   │\n")
+	fmt.Printf("│" + constants.GREEN + "One Knock to Rule Them All." + constants.RESET + "                                                                   │\n")
+	fmt.Printf("│" + constants.GREEN + "I'll be knocking your port until it responds. And I'm very insistent. ^^" + constants.RESET + "                      │\n")
+	fmt.Printf("│"+constants.CYAN+"Host to be checked: %s"+constants.RESET+"                                                            │\n", address)
+	fmt.Printf("───────────────────────────────────────────────────────────────────────────────────────────────\n")
 
 	for {
 		// Attempt to connect to the address and port
 		conn, err := net.Dial("tcp", address)
 		if err != nil {
 			// Log the error if the connection fails
-			fmt.Printf(toggleColor()+"["+currentTime()+"]: I still cannot connect to %s. Error: %s.\nWill retry in a second...\n"+Colors.RESET, address, err)
+			fmt.Printf(toggleColor()+"["+currentTime()+"]: I still cannot connect to %s. Error: %s.\nWill retry in a second...\n"+constants.RESET, address, err)
 		} else {
 			// Log success and close the connection
-			fmt.Printf(Colors.GREEN+"Successfully connected to %s\n! We're good to go!"+Colors.RESET, address)
+			fmt.Printf(constants.GREEN+"Successfully connected to %s\n! We're good to go!"+constants.RESET, address)
 			err := conn.Close()
 			if err != nil {
-				fmt.Printf(Colors.RED+"Some unexpected error happened.\n%s\nWill exit now."+Colors.RESET, err.Error())
+				fmt.Printf(constants.RED+"Some unexpected error happened.\n%s\nWill exit now."+constants.RESET, err.Error())
 				os.Exit(1)
 			}
 			// Exit with status code 0
