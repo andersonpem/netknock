@@ -8,6 +8,7 @@
 *.so
 *.dylib
 netknock
+NetKnock
 
 .idea
 .vscode
