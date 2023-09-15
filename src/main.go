@@ -1,8 +1,8 @@
 package main
 
 import (
-	"NetKnock/constants"
 	"fmt"
+	"github.com/andersonpem/netknock/constants"
 	"net"
 	"os"
 	"time"
