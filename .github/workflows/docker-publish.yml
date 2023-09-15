@@ -23,6 +23,9 @@ jobs:
         with:
           go-version: '1.20'
 
+      - name: List current directory
+        run: ls -al
+
       - name: Fetch Go dependencies
         run: go get -v ./...
         working-directory: ./
